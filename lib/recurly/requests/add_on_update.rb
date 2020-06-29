@@ -15,8 +15,8 @@ module Recurly
       define_attribute :code, String
 
       # @!attribute currencies
-      #   @return [Array[AddOnPricing]] If the add-on's `tier_type` is `tiered`, `volume` or `stairstep`, then `currencies` must be absent.
-      define_attribute :currencies, Array, { :item_type => :AddOnPricing }
+      #   @return [Array[Pricing]] If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then currencies must be absent
+      define_attribute :currencies, Array, { :item_type => :Pricing }
 
       # @!attribute default_quantity
       #   @return [Integer] Default quantity for the hosted pages.
@@ -39,7 +39,7 @@ module Recurly
       define_attribute :optional, :Boolean
 
       # @!attribute revenue_schedule_type
-      #   @return [String] When this add-on is invoiced, the line item will use this revenue schedule. If an `Item` is associated to the `AddOn` then `revenue_schedule_type` must be absent in the request as the value will be set from the item.
+      #   @return [String] When this add-on is invoiced, the line item will use this revenue schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type` must be absent in the request as the value will be set from the item.
       define_attribute :revenue_schedule_type, String
 
       # @!attribute tax_code
@@ -47,7 +47,7 @@ module Recurly
       define_attribute :tax_code, String
 
       # @!attribute tiers
-      #   @return [Array[Tier]] If tiers are provided in the request, all existing tiers on the Add-on will be removed and replaced by the tiers in the request.
+      #   @return [Array[Tier]] If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount` for the desired `currencies`. There must be one tier with an `ending_quantity` of 999999999 which is the default if not provided.
       define_attribute :tiers, Array, { :item_type => :Tier }
     end
   end

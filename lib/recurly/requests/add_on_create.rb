@@ -15,8 +15,8 @@ module Recurly
       define_attribute :code, String
 
       # @!attribute currencies
-      #   @return [Array[AddOnPricing]] * If `item_code`/`item_id` is part of the request and the item has a default currency then `currencies` is optional. If the item does not have a default currency, then `currencies` is required. If `item_code`/`item_id` is not present `currencies` is required. * If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `currencies` must be absent.
-      define_attribute :currencies, Array, { :item_type => :AddOnPricing }
+      #   @return [Array[Pricing]] * If `item_code`/`item_id` is part of the request and the item has a default currency then `currencies` is optional. If the item does not have a default currency, then `currencies` is required. If `item_code`/`item_id` is not present `currencies` is required. * If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `currencies` must be absent.
+      define_attribute :currencies, Array, { :item_type => :Pricing }
 
       # @!attribute default_quantity
       #   @return [Integer] Default quantity for the hosted pages.
@@ -27,7 +27,7 @@ module Recurly
       define_attribute :display_quantity, :Boolean
 
       # @!attribute item_code
-      #   @return [String] Unique code to identify an item. Avaliable when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
+      #   @return [String] Unique code to identify an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
       define_attribute :item_code, String
 
       # @!attribute item_id
@@ -55,11 +55,11 @@ module Recurly
       define_attribute :tax_code, String
 
       # @!attribute tier_type
-      #   @return [String] The type of tiering used by the Add-on.
+      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
       define_attribute :tier_type, String
 
       # @!attribute tiers
-      #   @return [Array[Tier]] At least one tier is required if `tier_type` is not 'flat'.
+      #   @return [Array[Tier]] If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount` for the desired `currencies`. There must be one tier with an `ending_quantity` of 999999999 which is the default if not provided.
       define_attribute :tiers, Array, { :item_type => :Tier }
     end
   end

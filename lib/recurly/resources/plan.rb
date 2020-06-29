@@ -90,6 +90,10 @@ module Recurly
       #   @return [Integer] Length of plan's trial period in `trial_units`. `0` means `no trial`.
       define_attribute :trial_length, Integer
 
+      # @!attribute trial_requires_billing_info
+      #   @return [Boolean] Allow free trial subscriptions to be created without billing info. Should not be used if billing info is needed for initial invoice due to existing uninvoiced charges or setup fee.
+      define_attribute :trial_requires_billing_info, :Boolean
+
       # @!attribute trial_unit
       #   @return [String] Units for the plan's trial period.
       define_attribute :trial_unit, String
